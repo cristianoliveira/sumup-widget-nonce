@@ -6,18 +6,15 @@ const server = http.createServer(app);
 const port = process.env.PORT || 4000;
 
 const crypto = require('crypto');
-let nonce = crypto.randomBytes(16).toString('base64');
 
-app.use(function (req, res, next) {
+app.get("/", (req, res) => {
+  const nonce = crypto.randomBytes(16).toString('base64');
   res.setHeader(
     "Content-Security-Policy",
       " font-src 'self';" +
       ` style-src 'self' 'nonce-${nonce}';`
   );
-  next();
-});
 
-app.get("/", (req, res) => {
   res.send(`<h1>Test CSP</h1>
     <div>Test using generated nonce: ${nonce}</div>
     <script type="text/javascript">
