@@ -40,9 +40,6 @@ app.get("/", (req, res) => {
 app.get("/without-nonce", (req, res) => {
   res.send(`<h1>Test CSP</h1>
     <div>Test without nonce</div>
-    <script type="text/javascript">
-      var myNonce = "${nonce}";
-    </script>
     <div id="sumup-card"></div>
     <script type="text/javascript" src="https://gateway-theta.sam-app.ro/gateway/ecom/card/v2/sdkv2.js"></script>
     <script type="text/javascript">
