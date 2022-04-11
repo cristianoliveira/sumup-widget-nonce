@@ -38,6 +38,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/without-nonce", (req, res) => {
+  res.setHeader(
+    "Content-Security-Policy",
+      " font-src 'self';" +
+      ` style-src 'self';`
+  );
   res.send(`<h1>Test CSP</h1>
     <div>Test without nonce</div>
     <div id="sumup-card"></div>
