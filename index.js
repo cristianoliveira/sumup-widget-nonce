@@ -18,12 +18,13 @@ app.use(function (req, res, next) {
 });
 
 app.get("/", (req, res) => {
-  res.send(`<h1>Hello world</h1>
+  res.send(`<h1>Test CSP</h1>
+    <div>Test using generated nonce: ${nonce}</div>
     <script type="text/javascript">
       var myNonce = "${nonce}";
     </script>
-    <div id="sumup-card">dara</div>
-    <script src="http://localhost:8003/sdkv2.js"></script>
+    <div id="sumup-card"></div>
+    <script type="text/javascript" src="https://gateway-theta.sam-app.ro/gateway/ecom/card/v2/sdkv2.js"></script>
     <script type="text/javascript">
         SumUpPayment.mount({
             nonce: myNonce,
@@ -34,7 +35,30 @@ app.get("/", (req, res) => {
             }
         });
     </script>
-    <div>footer</div>
+    <a href="/without-nonce">See without nonce</a>
+    <div>Footer</div>
+ `);
+});
+
+app.get("/without-nonce", (req, res) => {
+  res.send(`<h1>Test CSP</h1>
+    <div>Test without nonce</div>
+    <script type="text/javascript">
+      var myNonce = "${nonce}";
+    </script>
+    <div id="sumup-card"></div>
+    <script type="text/javascript" src="https://gateway-theta.sam-app.ro/gateway/ecom/card/v2/sdkv2.js"></script>
+    <script type="text/javascript">
+        SumUpPayment.mount({
+            checkoutId: 'demo',
+            onResponse: function(type, body) {
+                console.log('Type', type);
+                console.log('Body', body);
+            }
+        });
+    </script>
+    <a href="/">See without nonce</a>
+    <div>Footer</div>
  `);
 });
 
